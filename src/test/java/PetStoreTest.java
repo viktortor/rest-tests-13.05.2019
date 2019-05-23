@@ -1,0 +1,49 @@
+import io.restassured.RestAssured;
+import io.restassured.response.ValidatableResponse;
+import org.junit.Before;
+import org.junit.Test;
+
+public class PetStoreTest {
+
+    static {
+        RestAssured.baseURI = Config.BASE_URI;
+    }
+
+    private enum Status {
+        AVAILABLE,
+        PENDING,
+        SOLD
+    }
+
+    @Test
+    public void getPetByIdTest(){
+        int petId = 45;
+
+        RestAssured.given()
+                 //.log().uri()
+                .get(Config.GET_PET_BY_ID,petId)
+                .then()
+                .log().all()
+                .statusCode(200);
+    }
+
+    @Test
+    public void getPetByStatusTest(){
+
+
+        RestAssured.given()
+                .param("status", Status.AVAILABLE)
+                //.log().uri()
+                .get(Config.GET_PET_BY_STATUS)
+
+                .then()
+                .log().all()
+                .statusCode(200);
+    }
+
+
+
+
+
+
+}
