@@ -3,6 +3,9 @@ import io.restassured.response.ValidatableResponse;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class PetStoreTest {
 
     static {
@@ -17,7 +20,7 @@ public class PetStoreTest {
 
     @Test
     public void getPetByIdTest(){
-        int petId = 45;
+        int petId = 1;
 
         RestAssured.given()
                  //.log().uri()
@@ -28,21 +31,35 @@ public class PetStoreTest {
     }
 
     @Test
-    public void getPetByStatusTest(){
+    public void getPetByStatusTest() {
 
+        List statuses = Arrays.asList(Status.values());
+        statuses.forEach (status ->
 
-        RestAssured.given()
-                .param("status", Status.AVAILABLE)
-                //.log().uri()
-                .get(Config.GET_PET_BY_STATUS)
+            RestAssured.given()
+                    .param("status", status)
+                    .log().uri()
+                    .get(Config.GET_PET_BY_STATUS)
 
-                .then()
-                .log().all()
-                .statusCode(200);
+                    .then()
+                    .log().all()
+                    .statusCode(200)
+        );
+
     }
 
+        @Test
+        public void delPetByIdTest(){
+            int petId = 1;
 
+            RestAssured.given()
+                    //.log().uri()
+                    .delete(Config.DEL_PET_BY_ID,petId)
+                    .then()
+                    .log().all()
+                    .statusCode(200);
 
+    }
 
 
 

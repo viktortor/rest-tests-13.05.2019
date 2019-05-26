@@ -35,7 +35,7 @@ public class WeatherTest {
                 .statusCode(200)
                 .body("any{it.key == '{pcity}'}", is(true))//groovy path with hamcrest matchers
                 .body("'{pcity}'", is(cityId));// JSON path with hamcrest matchers
-        System.out.println(weatherByIdResponse.extract().path("'{pcity}'"));
+        //System.out.println(weatherByIdResponse.extract().path("'{pcity}'"));
 
     }
 }
