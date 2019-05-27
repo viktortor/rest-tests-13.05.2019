@@ -1,10 +1,10 @@
-import io.restassured.RestAssured;
-import io.restassured.response.ValidatableResponse;
-import org.junit.Before;
-import org.junit.Test;
+package petstore;
 
-import java.util.Arrays;
-import java.util.List;
+import io.restassured.RestAssured;
+import org.junit.Test;
+import petstore.models.CategoryModel;
+import petstore.models.PetModel;
+import petstore.models.TagModel;
 
 public class PetStoreTest {
 
@@ -33,20 +33,48 @@ public class PetStoreTest {
     @Test
     public void getPetByStatusTest() {
 
-        List statuses = Arrays.asList(Status.values());
-        statuses.forEach (status ->
+        for (Status status : Status.values()) {
 
-            RestAssured.given()
+             RestAssured.given()
                     .param("status", status)
                     .log().uri()
                     .get(Config.GET_PET_BY_STATUS)
 
                     .then()
                     .log().all()
-                    .statusCode(200)
-        );
+                    .statusCode(200);
+}
 
     }
+
+
+    @Test
+    public void createPetTest(){
+        PetModel petModel = new PetModel(
+                323,
+                 new CategoryModel(),
+                 "NewMyPet",
+                new String[]{"www.zoo.com"},
+                new TagModel[]{new TagModel()},
+                "AVAILABLE");
+
+
+        RestAssured.given()
+               // .header("Content-Type", "application/json")
+                .contentType("application/json")
+                .body(petModel)
+                .log().uri()
+                .post(Config.CREATE_PET)
+
+                .then()
+                .log().all()
+                .statusCode(200);
+    }
+
+
+
+
+
 
         @Test
         public void delPetByIdTest(){
