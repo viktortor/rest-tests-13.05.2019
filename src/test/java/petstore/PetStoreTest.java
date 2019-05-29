@@ -196,17 +196,15 @@ public class PetStoreTest {
         String petNameFromResponse = getPetByIdResponse.getString("name");
         Assert.assertEquals(petNameForUpdating, petNameFromResponse);
 
-//        JSONArray photoUrlsFromResponse = getPetByIdResponse.getJSONArray("photoUrls");
-//        System.out.println(photoUrlsFromResponse);
-//
-//
-//        for (int i = 0; i < photoUrlsFromResponse.length(); ++i) {
-//            String photoUrlFromResponse = photoUrlsFromResponse.getString("");
-//            String loc = rec.getString("loc");
-////
-//        String photoUrlsFromResponse = getPetByIdResponse..getString("photoUrls");
-//        System.out.println("+++++++++++++++++++++++++++++"+photoUrlsFromResponse);
-//        Assert.assertEquals(photoUrlsForUpdating, photoUrlsFromResponse);
+
+        JSONArray photoUrlsFromResponse = getPetByIdResponse.getJSONArray("photoUrls");
+        if (photoUrlsFromResponse.length()==photoUrlsForUpdating.length){
+
+            for (int i = 0; i < photoUrlsFromResponse.length(); ++i) {
+                Assert.assertEquals(photoUrlsFromResponse.get(i),photoUrlsForUpdating[i]);
+            }
+        }
+
 
         String petStatusFromResponse = getPetByIdResponse.getString("status");
         Assert.assertEquals(petStatusForUpdating, petStatusFromResponse);
