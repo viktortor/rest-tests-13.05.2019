@@ -1,4 +1,4 @@
-package petstore.models;
+package petstore.model;
 
 public class PetModel {
 
@@ -26,6 +26,31 @@ public class PetModel {
     private String[] photoUrls;
     private TagModel[] tags;
     private String status;
+
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setCategory(CategoryModel category) {
+        this.category = category;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setPhotoUrls(String[] photoUrls) {
+        this.photoUrls = photoUrls;
+    }
+
+    public void setTags(TagModel[] tags) {
+        this.tags = tags;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
     public int getId() {
         return id;

@@ -1,4 +1,4 @@
-package petstore.models;
+package petstore.model;
 
 public class CategoryModel {
     private int id;
