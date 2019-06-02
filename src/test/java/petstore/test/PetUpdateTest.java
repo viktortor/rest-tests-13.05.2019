@@ -15,7 +15,7 @@ public class PetUpdateTest {
 
     @Before
     public void preCondition(){
-        PetModel petModel = new PetModel(
+        petModel = new PetModel(
                 323,
                 new CategoryModel(),
                 "NewMyPet",
@@ -31,7 +31,7 @@ public class PetUpdateTest {
 
     @After
     public void postCondition(){
-        petEndpoint
+               petEndpoint
                 .delPetById(petModel.getId())
                 .statusCode(200);
 
@@ -50,4 +50,10 @@ public class PetUpdateTest {
                 .getPetById(petModel.getId())
                 .statusCode(200);
     }
+
+
+
+
+
+
 }
