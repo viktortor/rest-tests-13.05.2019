@@ -1,17 +1,15 @@
 package petstore.model;
 
-import java.util.Date;
-
 public class OrderModel {
    private int id;
     private int petId;
     private int quantity;
-    private Date shipDate;
+    private String shipDate;
     private String status;
     private boolean complete;
 
 
-    public OrderModel(int id, int petId, int quantity, Date shipDate, String status, boolean complete) {
+    public OrderModel(int id, int petId, int quantity, String shipDate, String status, boolean complete) {
         this.id = id;
         this.petId = petId;
         this.quantity = quantity;
@@ -32,7 +30,7 @@ public class OrderModel {
         return quantity;
     }
 
-    public Date getShipDate() {
+    public String getShipDate() {
         return shipDate;
     }
 
