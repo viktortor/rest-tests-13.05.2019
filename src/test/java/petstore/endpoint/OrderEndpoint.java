@@ -1,21 +1,23 @@
 package petstore.endpoint;
 
-import io.restassured.RestAssured;
+
 import io.restassured.response.ValidatableResponse;
 import io.restassured.specification.RequestSpecification;
+import net.serenitybdd.rest.SerenityRest;
+import net.thucydides.core.annotations.Step;
 import petstore.model.OrderModel;
 
 
 public class OrderEndpoint {
 
     private RequestSpecification given(){
-        return RestAssured.given()
+        return SerenityRest.given()
                 .baseUri(Config.BASE_URI)
                 .contentType("application/json")
                 .log().uri();
     }
 
-
+    @Step
     public ValidatableResponse createOrder(OrderModel orderModel){
 
         return  given()
@@ -26,7 +28,7 @@ public class OrderEndpoint {
     }
 
 
-
+    @Step
     public ValidatableResponse getOrderById(int orderId) {
         return given()
                 .get(Config.GET_ORDER_BY_ID, orderId)
@@ -35,7 +37,7 @@ public class OrderEndpoint {
                 .statusCode(200);
     }
 
-
+    @Step
     public ValidatableResponse delOrderById(int orderId){
 
         return given()

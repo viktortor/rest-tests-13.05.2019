@@ -1,6 +1,9 @@
 package petstore.test;
 
+import net.serenitybdd.junit.runners.SerenityRunner;
+import net.thucydides.core.annotations.Steps;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import petstore.endpoint.PetEndpoint;
 import petstore.model.CategoryModel;
 import petstore.model.PetModel;
@@ -8,9 +11,9 @@ import petstore.model.TagModel;
 
 import static petstore.endpoint.PetEndpoint.*;
 
-
+@RunWith(SerenityRunner.class)
 public class PetStoreTest {
-
+    @Steps //вычитываем степы
     private PetEndpoint petEndpoint = new PetEndpoint();
 
 
@@ -36,7 +39,7 @@ public class PetStoreTest {
     @Test
     public void createPetTest(){
         PetModel petModel = new PetModel(
-                323,
+                766,
                  new CategoryModel(),
                  "NewMyPet",
                 new String[]{"www.zoo.com"},
