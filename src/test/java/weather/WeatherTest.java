@@ -2,17 +2,29 @@ package weather;
 
 import io.restassured.RestAssured;
 import io.restassured.response.ValidatableResponse;
+import net.serenitybdd.junit.runners.SerenityRunner;
+import net.serenitybdd.rest.SerenityRest;
+import net.thucydides.core.annotations.Steps;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+
 
 import static org.hamcrest.CoreMatchers.is;
 
+
+@RunWith(SerenityRunner.class)
 public class WeatherTest {
 
+
+
+
+
     @Test
+
     public void getWeatherPerCityTest(){
         String cityName = "Lviv";
         RestAssured.baseURI = "https://pinformer.sinoptik.ua/";
-        ValidatableResponse response = RestAssured.given()
+        ValidatableResponse response = SerenityRest.given()
                 .basePath ("search.php")
                 .param("lang","ua")
                 .param("return_id",1)
@@ -26,7 +38,7 @@ public class WeatherTest {
         String cityId = responseString.substring(responseString.lastIndexOf("|")+1);
         System.out.println(cityId);
 
-        ValidatableResponse weatherByIdResponse = RestAssured.given()
+        ValidatableResponse weatherByIdResponse = SerenityRest.given()
                 .param("type","js")
                 .param("lang","ua")
                 .param("id",cityId)

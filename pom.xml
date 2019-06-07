@@ -7,6 +7,21 @@
     <groupId>com.udc.rest-tests</groupId>
     <artifactId>rest-tests-13.05.2019</artifactId>
     <version>1.0-SNAPSHOT</version>
+
+
+
+    <properties>
+            <serenity.version>2.0.50</serenity.version>
+            <jackson.databind.version>2.9.9</jackson.databind.version>
+            <org.json.version>20180130</org.json.version>
+            <org.slf4j.version>1.7.26</org.slf4j.version>
+            <surefire.version>2.20</surefire.version>
+
+    </properties>
+
+
+
+
     <build>
         <plugins>
             <plugin>
@@ -17,59 +32,74 @@
                     <target>8</target>
                 </configuration>
             </plugin>
+
+            <plugin>
+                <groupId>net.serenity-bdd.maven.plugins</groupId>
+                <artifactId>serenity-maven-plugin</artifactId>
+                <version>${serenity.version}</version>
+                <executions>
+                    <execution>
+                        <id>serenity-reports</id>
+                        <phase>post-integration-test</phase>
+                        <goals>
+                            <goal>aggregate</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+<!--for generation index.html if there are failed tests-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${surefire.version}</version>
+                <configuration>
+                    <testFailureIgnore>true</testFailureIgnore>
+                    <skip>false</skip>
+                </configuration>
+            </plugin>
+
         </plugins>
     </build>
 
+
+
+
+
     <dependencies>
-
-
-<!--
-
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.12</version>
-            <scope>test</scope>
-        </dependency>-->
-
         <!--for JavaObj to JSON serialisation-->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
-            <version>2.9.9</version>
+            <version>${jackson.databind.version}</version>
         </dependency>
-
 
         <dependency>
             <groupId>org.json</groupId>
             <artifactId>json</artifactId>
-            <version>20180130</version>
+            <version>${org.json.version}</version>
             <scope>test</scope>
         </dependency>
-
-
 
         <dependency>
             <groupId>net.serenity-bdd</groupId>
             <artifactId>serenity-rest-assured</artifactId>
-            <version>2.0.50</version>
+            <version>${serenity.version}</version>
         </dependency>
 
 <!--to enable default Serenity logging-->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-simple</artifactId>
-            <version>1.7.26</version>
+            <version>${org.slf4j.version}</version>
             <scope>test</scope>
         </dependency>
-
 
         <dependency>
             <groupId>net.serenity-bdd</groupId>
             <artifactId>serenity-junit</artifactId>
-            <version>2.0.50</version>
+            <version>${serenity.version}</version>
         </dependency>
-
 
     </dependencies>
 
