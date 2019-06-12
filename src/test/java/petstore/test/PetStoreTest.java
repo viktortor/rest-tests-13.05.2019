@@ -1,7 +1,10 @@
 package petstore.test;
 
+import net.serenitybdd.junit.runners.SerenityParameterizedRunner;
 import net.serenitybdd.junit.runners.SerenityRunner;
 import net.thucydides.core.annotations.Steps;
+import net.thucydides.junit.annotations.TestData;
+import net.thucydides.junit.annotations.UseTestDataFrom;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import petstore.endpoint.PetEndpoint;
@@ -9,39 +12,72 @@ import petstore.model.CategoryModel;
 import petstore.model.PetModel;
 import petstore.model.TagModel;
 
+import java.util.Arrays;
+import java.util.Collection;
+
 import static petstore.endpoint.PetEndpoint.*;
 
-@RunWith(SerenityRunner.class)
+@RunWith(SerenityParameterizedRunner.class)
 public class PetStoreTest {
+
+//https://github.com/TNG/junit-dataprovider
+    @TestData
+    public static Collection<Object[]> testDataCreatePet(){
+        return Arrays.asList(new Object[][]{
+                {766, "Bronze", 200},
+                {767, "Bronze", 200},
+                {768, "Silver", 200},
+                {769, "Silver", 200},
+                {770, "Gold", 400}
+        });
+    }
+
+    private int petId;
+    private String petName;
+    private int expectedStatus;
+
+
+    public PetStoreTest(int petId, String petName, int expectedStatus) {
+        this.petId = petId;
+        this.petName = petName;
+        this.expectedStatus = expectedStatus;
+    }
+
+
+
+
     @Steps //вычитываем степы
     private PetEndpoint petEndpoint;
 
 
-    @Test
-    public void getPetByIdTest(){
-        int petId = 2;
-        petEndpoint
-                .getPetById(petId)
-                .statusCode(200);
-    }
+//    @Test
+//    public void getPetByIdTest(){
+//        int petId = 2;
+//        petEndpoint
+//                .getPetById(petId)
+//                .statusCode(200);
+//    }
+//
+//    @Test
+//    public void getPetByStatusTest() {
+//        for (Status status : Status.values()) {
+//        petEndpoint
+//           .getPetByStatus(status)
+//           .statusCode(200);
+//}
+//
+//    }
+
 
     @Test
-    public void getPetByStatusTest() {
-        for (Status status : Status.values()) {
-        petEndpoint
-           .getPetByStatus(status)
-           .statusCode(200);
-}
 
-    }
-
-
-    @Test
+   // @UseDataProvider(value = "testDataCreatePet", location = PetStoreTest.class)
     public void createPetTest(){
+
         PetModel petModel = new PetModel(
-                766,
+                petId,
                  new CategoryModel(),
-                 "NewMyPet",
+                 petName,
                 new String[]{"www.zoo.com"},
                 new TagModel[]{new TagModel()},
                 "AVAILABLE");
@@ -49,20 +85,17 @@ public class PetStoreTest {
 
         petEndpoint
                 .createPet(petModel)
-                .statusCode(200);
+                .statusCode(expectedStatus);
     }
 
 
-        @Test
-        public void delPetByIdTest(){
-            int petId = 1;
-            petEndpoint
-                    .delPetById(petId)
-                    .statusCode(200);
-    }
-
-
-
+//        @Test
+//        public void delPetByIdTest(){
+//            int petId = 1;
+//            petEndpoint
+//                    .delPetById(petId)
+//                    .statusCode(200);
+//    }
 
 
 
