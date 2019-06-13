@@ -56,7 +56,6 @@ public class PetEndpoint {
 
     @Step
     public ValidatableResponse createPet(PetModel petModel){
-
         return  given()
                 .body(petModel)
                 .post(Config.CREATE_PET)
