@@ -1,8 +1,6 @@
 package petstore.test;
 
-import com.tngtech.java.junit.dataprovider.DataProvider;
-import com.tngtech.java.junit.dataprovider.DataProviderRunner;
-import com.tngtech.java.junit.dataprovider.UseDataProvider;
+import net.serenitybdd.junit.runners.SerenityRunner;
 import net.thucydides.core.annotations.Steps;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,12 +10,12 @@ import petstore.model.PetModel;
 import petstore.model.TagModel;
 import static petstore.endpoint.PetEndpoint.*;
 
-@RunWith(DataProviderRunner.class)
+@RunWith(SerenityRunner.class)
 public class PetStoreTest {
 
 
     @Steps //вычитываем степы
-    private PetEndpoint petEndpoint = new PetEndpoint();
+    private PetEndpoint petEndpoint;
 
 
     @Test
@@ -39,35 +37,20 @@ public class PetStoreTest {
     }
 
 
-    @DataProvider
-    public static Object[][] createPetDataProvider() {
-        return new Object[][] {
-                {766, "Bronze", 200},
-                {767, "Bronze", 200},
-                {768, "Silver", 200},
-                {769, "Silver", 200},
-                {770, null, 200}
-        };
-    }
-
-
-
     @Test
-    @UseDataProvider("createPetDataProvider")
-    public void createPetTest(int petId, String petName, int expectedStatus){
+    public void createPetTest(){
 
         PetModel petModel = new PetModel(
-                petId,
+                877,
                  new CategoryModel(),
-                 petName,
+                 "newmypet",
                 new String[]{"www.zoo.com"},
                 new TagModel[]{new TagModel()},
                 "AVAILABLE");
 
-
         petEndpoint
                 .createPet(petModel)
-                .statusCode(expectedStatus);
+                .statusCode(200);
     }
 
 

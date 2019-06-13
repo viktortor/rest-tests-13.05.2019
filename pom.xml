@@ -16,6 +16,7 @@
             <org.json.version>20180130</org.json.version>
             <org.slf4j.version>1.7.26</org.slf4j.version>
             <surefire.version>2.20</surefire.version>
+            <test.name>*</test.name>
 
     </properties>
 
@@ -54,6 +55,10 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>${surefire.version}</version>
                 <configuration>
+                    <!--for running given class-->
+                    <includes>
+                        <include>**/tests/**/${test.name}.java</include>
+                    </includes>
                     <testFailureIgnore>true</testFailureIgnore>
                     <skip>false</skip>
                 </configuration>
