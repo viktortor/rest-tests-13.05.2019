@@ -10,7 +10,6 @@ import petstore.endpoint.PetEndpoint;
 import petstore.model.CategoryModel;
 import petstore.model.PetModel;
 import petstore.model.TagModel;
-
 import java.util.Arrays;
 import java.util.Collection;
 

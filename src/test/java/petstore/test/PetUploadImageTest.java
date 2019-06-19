@@ -8,17 +8,23 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import petstore.endpoint.PetEndpoint;
+import petstore.endpoint.UploadImageEndpoint;
 import petstore.model.CategoryModel;
 import petstore.model.PetModel;
 import petstore.model.TagModel;
+import java.io.File;
+import static org.hamcrest.CoreMatchers.is;
 
 @Concurrent
 @RunWith(SerenityRunner.class)
-public class PetUpdateTest {
-
+public class PetUploadImageTest {
+    @Steps
+    private UploadImageEndpoint uploadImageEndpoint;
+    private PetModel petModel;
     @Steps
     private PetEndpoint petEndpoint;
-    private PetModel petModel;
+
+
 
     @Before
     public void preCondition(){
@@ -38,7 +44,7 @@ public class PetUpdateTest {
 
     @After
     public void postCondition(){
-               petEndpoint
+        petEndpoint
                 .delPetById(petModel.getId())
                 .statusCode(200);
 
@@ -46,21 +52,23 @@ public class PetUpdateTest {
 
 
     @Test
-    public void updatePetTest(){
-        petModel.setName("tiger");
-        petModel.setStatus("SOLD");
-        petEndpoint
-                .updatePetById(petModel)
-                .statusCode(200);
+    public void uploadPetPhotoTest(){
 
-        petEndpoint
-                .getPetById(petModel.getId())
-                .statusCode(200);
+        String pathName = "D:\\Loboda\\courses\\testData\\";
+        String fileName = "cloud.jpg";
+
+        File file = new File(pathName + fileName);
+
+        uploadImageEndpoint
+                .uploadPetImage(323, file)
+                .body("code", is(200))
+                .body("message", is("additionalMetadata: null" + "\n" +
+                        "File uploaded to ./" + fileName + ", " + file.length() + " bytes"));
     }
 
 
 
-
-
-
 }
+
+
+

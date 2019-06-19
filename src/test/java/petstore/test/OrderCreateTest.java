@@ -1,20 +1,24 @@
 package petstore.test;
 
+import net.serenitybdd.junit.runners.SerenityRunner;
+import net.thucydides.core.annotations.Steps;
+import net.thucydides.junit.annotations.Concurrent;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import petstore.endpoint.OrderEndpoint;
 import petstore.model.OrderModel;
-
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
-
 import static org.hamcrest.CoreMatchers.is;
 
+@Concurrent
+@RunWith(SerenityRunner.class)
 public class OrderCreateTest {
-
-    private OrderEndpoint orderEndpoint = new OrderEndpoint();
+    @Steps
+    private OrderEndpoint orderEndpoint;
     private OrderModel orderModel;
     private DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern( "yyyy-MM-dd'T'HH:mm:ss.SSSxxx" );
     private String currentDate = OffsetDateTime.now(ZoneOffset.UTC).format(dateFormat) ;

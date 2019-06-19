@@ -16,6 +16,7 @@
             <org.json.version>20180130</org.json.version>
             <org.slf4j.version>1.7.26</org.slf4j.version>
             <surefire.version>2.20</surefire.version>
+        <maven.compiler.plugin.version>3.7.0</maven.compiler.plugin.version>
             <test.name>*</test.name>
 
     </properties>
@@ -28,6 +29,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven.compiler.plugin.version}</version>
                 <configuration>
                     <source>8</source>
                     <target>8</target>
@@ -57,7 +59,7 @@
                 <configuration>
                     <!--for running given class-->
                     <includes>
-                        <include>**/tests/**/${test.name}.java</include>
+                        <include>**/test/**/${test.name}.java</include>
                     </includes>
                     <testFailureIgnore>true</testFailureIgnore>
                     <skip>false</skip>
@@ -106,12 +108,12 @@
             <version>${serenity.version}</version>
         </dependency>
 
-        <dependency>
+<!--        <dependency>
             <groupId>com.tngtech.java</groupId>
             <artifactId>junit-dataprovider</artifactId>
             <version>1.10.0</version>
             <scope>test</scope>
-        </dependency>
+        </dependency>-->
 
     </dependencies>
 

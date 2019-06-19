@@ -3,7 +3,6 @@ package petstore.test;
 import net.serenitybdd.junit.runners.SerenityRunner;
 import net.thucydides.core.annotations.Steps;
 import net.thucydides.junit.annotations.Concurrent;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,9 +13,8 @@ import petstore.model.TagModel;
 
 @Concurrent
 @RunWith(SerenityRunner.class)
-public class PetUpdateTest {
-
-    @Steps
+public class PetDeleteTest {
+    @Steps //вычитываем степы
     private PetEndpoint petEndpoint;
     private PetModel petModel;
 
@@ -36,31 +34,13 @@ public class PetUpdateTest {
     }
 
 
-    @After
-    public void postCondition(){
-               petEndpoint
-                .delPetById(petModel.getId())
-                .statusCode(200);
-
-    }
-
 
     @Test
-    public void updatePetTest(){
-        petModel.setName("tiger");
-        petModel.setStatus("SOLD");
+    public void delPetByIdTest(){
+        int petId = petModel.getId();
         petEndpoint
-                .updatePetById(petModel)
-                .statusCode(200);
-
-        petEndpoint
-                .getPetById(petModel.getId())
+                .delPetById(petId)
                 .statusCode(200);
     }
-
-
-
-
-
 
 }
