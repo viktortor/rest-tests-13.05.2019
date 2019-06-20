@@ -16,8 +16,9 @@
             <org.json.version>20180130</org.json.version>
             <org.slf4j.version>1.7.26</org.slf4j.version>
             <surefire.version>2.20</surefire.version>
-        <maven.compiler.plugin.version>3.7.0</maven.compiler.plugin.version>
+            <maven.compiler.plugin.version>3.7.0</maven.compiler.plugin.version>
             <test.name>*</test.name>
+            <env>qa</env>
 
     </properties>
 

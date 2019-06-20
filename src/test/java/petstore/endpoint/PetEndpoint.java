@@ -1,6 +1,7 @@
 package petstore.endpoint;
 
 
+import io.restassured.builder.MultiPartSpecBuilder;
 import io.restassured.response.ValidatableResponse;
 import io.restassured.specification.RequestSpecification;
 import net.serenitybdd.rest.SerenityRest;
@@ -8,10 +9,10 @@ import net.thucydides.core.annotations.Step;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import petstore.model.PetModel;
+import java.io.File;
 
 public class PetEndpoint {
 
-   // Logger log = Logger.getLogger(this.getClass().getName());
     Logger log = LoggerFactory.getLogger(this.getClass().getName());
 
 
@@ -82,5 +83,17 @@ public class PetEndpoint {
 //                .log().all();
     }
 
+    @Step
+    public ValidatableResponse uploadPetImage(int petId, File file) {
+
+        return given()
+                .contentType("multipart/form-data")
+                .multiPart(new MultiPartSpecBuilder(file)
+                        .fileName(file.getName())
+                        .build())
+                .post(Config.UPLOAD_IMAGE_FOR_PET, petId)
+                .then();
+
+    }
 
 }

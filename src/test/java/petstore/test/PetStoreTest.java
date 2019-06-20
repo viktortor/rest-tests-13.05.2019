@@ -13,7 +13,7 @@ import petstore.model.PetModel;
 import petstore.model.TagModel;
 import static petstore.endpoint.PetEndpoint.*;
 
-@Concurrent
+@Concurrent (threads = "4")
 @RunWith(SerenityRunner.class)
 public class PetStoreTest {
 

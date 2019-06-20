@@ -11,6 +11,8 @@ import petstore.endpoint.PetEndpoint;
 import petstore.model.CategoryModel;
 import petstore.model.PetModel;
 import petstore.model.TagModel;
+import java.io.File;
+import static org.hamcrest.Matchers.containsString;
 
 @Concurrent
 @RunWith(SerenityRunner.class)
@@ -56,6 +58,19 @@ public class PetUpdateTest {
         petEndpoint
                 .getPetById(petModel.getId())
                 .statusCode(200);
+    }
+
+
+
+    @Test
+    public void uploadPetPhotoTest(){
+        File petImageFile = new File(getClass().getClassLoader().getResource("cloud.jpg").getFile());
+        petEndpoint
+                .uploadPetImage(2, petImageFile)
+                .log().all()
+                .statusCode(200)
+                .body("message", containsString(petImageFile.getName()));
+
     }
 
 
